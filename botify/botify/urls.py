@@ -18,7 +18,13 @@ from django.contrib import admin
 from django.urls import path
 from .views import index
 
+from django.urls import include  # Import the include function
+
+from django.contrib.auth import views as auth_views  # Import the auth_views module
+from django.conf import settings  # Import the settings module
+
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", index),
+    path("", index, name="home"),
+    path("users/", include("customusers.urls"), name="users"),
 ]

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <form  action="{% url 'login' %}" method="post" style="margin-top: 50px;">
+            {% csrf_token %}
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="email" name="email" type="email" class="validate">
+                    <label for="email">Email</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                <input id="password" type="password" name="password" class="validate">
+                <label for="password">Password</label>
+                </div>
+                <button class="btn waves-effect waves-light" style="margin-left: 15px" type="submit" name="action">Submit
+                    <i class="material-icons right">send</i>
+            </div>
+    </form>
+</div>
+
+{% endblock %}
