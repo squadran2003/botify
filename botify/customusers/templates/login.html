@@ -6,14 +6,25 @@
             {% csrf_token %}
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="email" name="email" type="email" class="validate">
+                    {% if error %}
+                        <input id="email" name="email" type="email" class="validate invalid">
+                    {% else %}
+                        <input id="email" name="email" type="email" class="validate">
+                    {% endif %}
                     <label for="email">Email</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                <input id="password" type="password" name="password" class="validate">
-                <label for="password">Password</label>
+                    {% if error %}
+                        <input id="password" type="password" name="password" class="validate invalid">
+                    {% else %}
+                        <input id="password" type="password" name="password" class="validate">
+                    {% endif %}
+                    <label for="password">Password</label>
+                    {% if error %}
+                        <span class="error-text">{{error}}</span>
+                    {% endif %}
                 </div>
                 <button class="btn waves-effect waves-light" style="margin-left: 15px" type="submit" name="action">Submit
                     <i class="material-icons right">send</i>
