@@ -9,6 +9,8 @@ services:
       - api
     networks:
       - botify
+    volumes:
+      - static:/static
   api:
     restart: always
     build:
@@ -29,4 +31,8 @@ services:
 networks:
   botify:
     driver: bridge
+
+volumes:
+  static:
+
 
