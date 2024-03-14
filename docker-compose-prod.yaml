@@ -26,11 +26,7 @@ services:
     networks:
       - botify
 
-
-
-# create a network for the two services to communicate with each other
 networks:
-  default:
-    external:
-      name: botify
+  botify:
+    driver: bridge
 
