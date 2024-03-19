@@ -20,7 +20,7 @@ services:
       sh -c "python manage.py migrate && python manage.py collectstatic --noinput &&
              gunicorn botify.wsgi:application --bind 0.0.0.0:8000"
     volumes:
-      - static:/home/ubuntu/app/botify/botify/static/
+      - ./:/usr/src/botify/
     expose:
       - 8000
     env_file:
