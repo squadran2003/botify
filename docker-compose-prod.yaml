@@ -21,6 +21,7 @@ services:
              gunicorn botify.wsgi:application --bind 0.0.0.0:8000"
     volumes:
       - ./:/usr/src/botify/
+      - static:/usr/src/botify/botify/static/
     expose:
       - 8000
     env_file:
