@@ -33,6 +33,9 @@ services:
 networks:
   botify:
     driver: bridge
+    ipam:
+      config:
+        - subnet: "172.31.26.99/5432"  # Customize subnet if needed
 
 volumes:
   static:
