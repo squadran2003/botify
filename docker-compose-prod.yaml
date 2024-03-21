@@ -24,7 +24,6 @@ services:
       - static:/usr/src/botify/botify/static/
     expose:
       - 8000
-      - 5432
     env_file:
       - ./botify/.env
     networks:
@@ -33,9 +32,6 @@ services:
 networks:
   botify:
     driver: bridge
-    ipam:
-      config:
-        - subnet: "172.31.26.99/5432"  # Customize subnet if needed
 
 volumes:
   static:
