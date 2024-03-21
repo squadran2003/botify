@@ -24,6 +24,7 @@ services:
       - static:/usr/src/botify/botify/static/
     expose:
       - 8000
+      - 5432
     env_file:
       - ./botify/.env
     networks:
