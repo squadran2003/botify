@@ -27,4 +27,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", index, name="home"),
     path("users/", include("customusers.urls"), name="users"),
+    path("songs/", include(("songs.urls", "songs"), namespace="songs"))
 ]
