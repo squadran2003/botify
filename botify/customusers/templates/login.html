@@ -3,33 +3,33 @@
 {% block content %}
 <div class="container">
     <form  action="{% url 'login' %}" method="post" style="margin-top: 50px;">
-            {% csrf_token %}
-            <div class="row">
-                <div class="input-field col s12">
-                    {% if error %}
-                        <input id="email" name="email" type="email" class="validate invalid">
-                    {% else %}
-                        <input id="email" name="email" type="email" class="validate">
-                    {% endif %}
-                    <label for="email">Email</label>
-                </div>
+        {% csrf_token %} 
+            <div class="field">
+                <p class="control has-icons-left has-icons-right">
+                <input class="input" id="email" name="email" type="email" placeholder="Email">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                </span>
+                <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                </span>
+                </p>
             </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    {% if error %}
-                        <input id="password" type="password" name="password" class="validate invalid">
-                    {% else %}
-                        <input id="password" type="password" name="password" class="validate">
-                    {% endif %}
-                    <label for="password">Password</label>
-                    {% if error %}
-                        <span class="error-text">{{error}}</span>
-                    {% endif %}
-                </div>
-                <button class="btn waves-effect waves-light" style="margin-left: 15px" type="submit" name="action">Submit
-                    <i class="material-icons right">send</i>
+            <div class="field">
+                <p class="control has-icons-left">
+                <input class="input" type="password" name="password" id="password" placeholder="Password">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                </span>
+                </p>
+            </div>
+            <div class="field">
+                <p class="control">
+                <button class="button is-success" type="submit">
+                    Login
+                </button>
+                </p>
             </div>
     </form>
-</div>
 
 {% endblock %}
