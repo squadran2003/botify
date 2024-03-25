@@ -1,35 +1,36 @@
-{% extends 'base.html' %}
+ {% extends 'base.html' %}
 
 {% block content %}
 <div class="container">
     <form  action="{% url 'login' %}" method="post" style="margin-top: 50px;">
-        {% csrf_token %} 
-            <div class="field">
-                <p class="control has-icons-left has-icons-right">
-                <input class="input" id="email" name="email" type="email" placeholder="Email">
-                <span class="icon is-small is-left">
-                    <i class="fas fa-envelope"></i>
-                </span>
-                <span class="icon is-small is-right">
-                    <i class="fas fa-check"></i>
-                </span>
-                </p>
-            </div>
-            <div class="field">
-                <p class="control has-icons-left">
-                <input class="input" type="password" name="password" id="password" placeholder="Password">
-                <span class="icon is-small is-left">
-                    <i class="fas fa-lock"></i>
-                </span>
-                </p>
-            </div>
-            <div class="field">
-                <p class="control">
-                <button class="button is-success" type="submit">
-                    Login
-                </button>
-                </p>
-            </div>
+        {% csrf_token %}
+        {% for field in form %} 
+        <div class="field">
+            <p class="control has-icons-left has-icons-right">
+                {{ field }}
+                {% if field.name == 'password' %}
+                    <span class="icon is-small is-left">
+                        <i class="fa fa-lock"></i>
+                    </span>
+                {% else %}
+                    <span class="icon is-small is-left">
+                        <i class="fa fa-envelope"></i>
+                    </span>
+                {% endif %}
+            </p>
+        </div>
+        {% endfor %}
+        <div class="field">
+            <p class="control">
+            <button class="button is-success" type="submit">
+                Login
+            </button>
+            </p>
+        </div>
+        {% if error %}
+            <p class="help is-danger">{{error}}</p>
+        {% endif %}
+            
     </form>
 
 {% endblock %}
