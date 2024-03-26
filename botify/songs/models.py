@@ -15,15 +15,3 @@ class Song(models.Model):
     def __str__(self):
         return self.title
 
-    def clean(self):
-        if self.file:
-            if self.file.size > 4*1024*1024:
-                raise ValidationError("File too large ( > 4mb )")
-            if not self.file.name.endswith(
-                ('.mp3', '.mp4', '.wav', '.flac', '.m4a', '.wma', '.aac', '.ogg', '.webm', '.mkv', '.avi', '.mov', '.wmv')
-            ):
-                raise ValidationError("Content-Type is not audio or video")
-            self.file.name = str(self.user.id) + '_'+self.file.name
-            return self.file
-        else:
-            raise ValidationError("Couldn't read uploaded file")

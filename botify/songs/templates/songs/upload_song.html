@@ -2,43 +2,66 @@
 {% load static %}
 {% block content %}
 <div class="container">
-  <h2>Upload a Song</h2>
-  <div class="row">
+  <div class="row mt-6">
     <div class="col s12">
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <div class="input-field col s12">
-          <select>
-            <option value="" disabled selected>Choose your option</option>
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-            <option value="3">Option 3</option>
-          </select>
-          <label>Materialize Select</label>
-        </div>
         {% for field in form %}
         <div class="row">
           {% if field.field.widget.input_type == 'file' %}
-            <div class="file-field input-field col-12">
-              <div class="btn">
-                <span>File</span>
-                <input type="file" name={{field.name}} id={{field.id}}>
-              </div>
-              <div class="file-path-wrapper">
-                <input class="file-path validate" type="text">
-              </div>
-            </div>
+          <div class="file has-name mt-2">
+            <label class="file-label">
+              {{field}}
+              {% if field.errors %}
+                {% for error in field.errors %}
+                  <p class="help is-danger">{{error}}</p>
+                {% endfor %}
+              {% endif %}
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fa fa-upload"></i>
+                </span>
+                <span class="file-label"> Choose a file… </span>
+              </span>
+              <span class="file-name"> Filename </span>
+            </label>
+          </div>
+          {% elif field.field.widget.input_type == 'checkbox' %}
+            <label class="checkbox">
+              {{field}}
+              <span>{{field.label}}</span>
+              {% if field.errors %}
+                  {% for error in field.errors %}
+                    <p class="help is-danger">{{error}}</p>
+                  {% endfor %}
+              {% endif %}
+            </label>
           {% else %}
             <div class="input-field col s12">
-              {{ field.label_tag }} {{ field }} {{field.field.widget.input_type}}
+              {{field}}
+              {% if field.errors %}
+                {% for error in field.errors %}
+                  <p class="help is-danger">{{error}}</p>
+                {% endfor %}
+              {% endif %}
             </div>
           {% endif %}
         {% endfor %}
-        <div class="input-field col s12">
-            <button type="submit" class="btn">Upload</button>
+        <div class="input-field col s12 mt-2">
+          <button class="button is-white" type="submit">Upload</button>
         </div>
       </form>
     </div>
   </div>
 </div>
 {% endblock %}
+<script>
+    // grab the file input and the file name span
+    const fileInput = document.querySelector('input[type="file"]');
+    const fileName = document.querySelector('.file-name');
+    if(fileInput){
+      fileInput.addEventListener('change', function(e) {
+        fileName.textContent = `${e.target.files[0].name}.${e.target.files[0].type}`;
+      });
+    }
+</script>

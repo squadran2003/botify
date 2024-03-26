@@ -14,9 +14,30 @@
   <body>
     {% include 'nav.html' %}
    <div class="container">
+    {% if messages %}
+    <div class="notification is-link is-light">
+      <button class="delete" id="delete"></button>
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+    </div>
+    {% endif %}
       {% block content %}
       {% endblock %}
     </div>
+<script>
+  // grab the delete button
+  const deleteButton = document.querySelector('#delete');
+  // add an event listener to the delete button
+  if(deleteButton){
+    deleteButton.addEventListener('click', function() {
+      // grab the parent element of the delete button
+      const parent = deleteButton.parentElement;
+      // remove the parent element from the DOM
+      parent.remove();
+    });
+  }
+</script>
             
   </body>
 </html>
