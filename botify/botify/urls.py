@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
 from .views import index
 
 from django.urls import include  # Import the include function
@@ -23,9 +24,14 @@ from django.urls import include  # Import the include function
 from django.contrib.auth import views as auth_views  # Import the auth_views module
 from django.conf import settings  # Import the settings module
 
+from django.conf.urls.static import static  # Import the static function
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", index, name="home"),
     path("users/", include("customusers.urls"), name="users"),
     path("songs/", include(("songs.urls", "songs"), namespace="songs"))
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

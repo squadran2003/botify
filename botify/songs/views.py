@@ -14,6 +14,8 @@ def SongUpload(request):
             form.save()
             messages.success(request, 'Song uploaded succssfully.')
             return redirect('home')
+        else:
+            return redirect("songs:upload", {'form': form})
     else:
         form = SongForm()
         form.fields['artist'].initial = request.user
