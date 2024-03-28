@@ -19,7 +19,7 @@ class LoginView(View):
         if user:
             # handle successful login
             login(request, user)
-            return render(request, 'index.html')
+            return redirect('home')
         else:
             error = "Invalid email or password"
             return render(request, 'login.html', {'error': error, 'form': form})

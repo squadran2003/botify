@@ -29,7 +29,7 @@ from django.conf.urls.static import static  # Import the static function
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", index, name="home"),
-    path("users/", include("customusers.urls"), name="users"),
+    path("users/", include(("customusers.urls", "users"), namespace="users")),
     path("songs/", include(("songs.urls", "songs"), namespace="songs"))
 ]
 

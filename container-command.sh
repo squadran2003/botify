@@ -12,4 +12,5 @@ docker exec -it $container_name $command
 # ./container-command.sh botify_api_1 "python manage.py startapp customusers"
 # ./container-command.sh botify-api-1 "python manage.py startapp customusers"
 # CURRENT_UID=$(id -u):$(id -g) docker-compose up
+# ./container-command.sh botify_api_1 "sh"
 

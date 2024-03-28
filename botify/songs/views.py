@@ -7,7 +7,7 @@ from django.contrib import messages
 def SongUpload(request):
     if request.user.is_anonymous:
         messages.error(request, 'You need to login to upload songs.')
-        return redirect('login')
+        return redirect('users:login')
     if request.method == 'POST':
         form = SongForm(request.POST, request.FILES)
         if form.is_valid():
