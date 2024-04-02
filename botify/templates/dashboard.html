@@ -4,72 +4,47 @@
 {% block content %}
 <div class="columns">
     <!-- First Column -->
-    <div class="column is-one-third">
-      <div class="box">
-        <p class="is-size-2">Playlists</p>
-        <div class="card">
-            <header class="card-header">
-              <p class="card-header-title">Component</p>
-              <button class="card-header-icon" aria-label="more options">
-                <span class="icon">
-                  <i class="fas fa-angle-down" aria-hidden="true"></i>
-                </span>
-              </button>
-            </header>
-            <div class="card-content">
-              <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec
-                iaculis mauris.
-                <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-                <br />
-                <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-              </div>
-            </div>
-            <footer class="card-footer">
-              <a href="#" class="card-footer-item">Save</a>
-              <a href="#" class="card-footer-item">Edit</a>
-              <a href="#" class="card-footer-item">Delete</a>
-            </footer>
-          </div>
-      </div>
-    </div>
-    
-    <!-- Second Column -->
     <div class="column">
-      <div class="box">
-        <p class="is-size-2">Songs</p>
-        <table class="table  is-striped is-fullwidth">
-            <thead>
-              <tr>
-                <th><abbr title="ID">ID</abbr></th>
-                <th><abbr title="Artist">Artist</abbr></th>
-                <th><abbr title="Title">Title</abbr></th>
-                <th><abbr title="Song">Song</abbr></th>
-              </tr>
-            </thead>
-            <tfoot>
-              <tr>
-              </tr>
-            </tfoot>
-            <tbody>
-                {% for song in songs %}
-                <tr>
-                    <th>{{ song.id }}</th>
-                    <th><abbr title="Artist">{{song.artist.username}}</abbr></th>
-                    <th><abbr title="Title">{{song.title}}</abbr></th>
-                    {% if song.is_audio %}
-                        <th>
-                            <audio controls>
-                                <source src="{{ song.file.url }}" type="{{ song.file.content_type }}">
-                                Your browser does not support the audio element.
-                            </audio>
-                        </th>
-                    {% endif %}
-                 </tr>
-                {% endfor %}
-            </tbody>
-          </table>
+      <div class="tabs is-right">
+        <ul>
+          <li class="is-active"><a>Audio</a></li>
+          <li><a>Video</a></li>
+        </ul>
+      </div>
+   </div>
+</div>
+<div class="columns is-multiline">
+   {% for song in songs %}
+    <div class="column is-3">
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+            Title: {{ song.title }}
+          </p>
+        </header>
+        <div class="card-content">
+          <div class="content">
+            <p>Description: {{ song.description }}</p>
+           <p>By: <a href="">{{song.artist.email}}</a></p>
+          </div>
+          <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
+            <ul>
+              <li class="is-active"><a href="#">12 Likes</a></li>
+              <li><a href="#">4 comments</a></li>
+              <li><a href="#"><span class="fa fa-edit"></span></a></li>
+            </ul>
+          </nav>
+        </div>
+        <footer class="card-footer">
+          <a href="#" class="card-footer-item">
+            <audio controls>
+              <source src="{{song.file.url}}" type="audio/mpeg">
+              Your browser does not support the audio tag.
+            </audio>
+          </a>
+        </footer>
       </div>
     </div>
-  </div>
+  {% endfor %}
+</div>
 {% endblock %}

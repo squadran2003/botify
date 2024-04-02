@@ -9,22 +9,21 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head> 
-  </head>
 
   <body>
     {% include 'nav.html' %}
    <div class="container">
-    {% if messages %}
-    <div class="notification is-link is-light">
-      <button class="delete" id="delete"></button>
-      {% for message in messages %}
-        {{ message }}
-      {% endfor %}
-    </div>
+      {% if messages %}
+      <div class="notification is-link is-light">
+        <button class="delete" id="delete"></button>
+        {% for message in messages %}
+          {{ message }}
+        {% endfor %}
+      </div>
     {% endif %}
       {% block content %}
       {% endblock %}
-    </div>
+  </div>
 <script>
   // grab the delete button
   const deleteButton = document.querySelector('#delete');
