@@ -30,7 +30,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", index, name="home"),
     path("users/", include(("customusers.urls", "users"), namespace="users")),
-    path("songs/", include(("songs.urls", "songs"), namespace="songs"))
+    path("songs/", include(("songs.urls", "songs"), namespace="songs")),
+    path("<str:type>/", index, name="home"),
 ]
 
 if settings.DEBUG:

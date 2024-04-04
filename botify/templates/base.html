@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head> 
 
-  <body>
+  <body style="background-color: #f9f1f1;height:100vh">
     {% include 'nav.html' %}
    <div class="container">
       {% if messages %}
@@ -23,20 +23,19 @@
     {% endif %}
       {% block content %}
       {% endblock %}
-  </div>
-<script>
-  // grab the delete button
-  const deleteButton = document.querySelector('#delete');
-  // add an event listener to the delete button
-  if(deleteButton){
-    deleteButton.addEventListener('click', function() {
-      // grab the parent element of the delete button
-      const parent = deleteButton.parentElement;
-      // remove the parent element from the DOM
-      parent.remove();
-    });
-  }
-</script>
-            
+    </div>
   </body>
+  <script>
+    // grab the delete button
+    const deleteButton = document.querySelector('#delete');
+    // add an event listener to the delete button
+    if(deleteButton){
+      deleteButton.addEventListener('click', function() {
+        // grab the parent element of the delete button
+        const parent = deleteButton.parentElement;
+        // remove the parent element from the DOM
+        parent.remove();
+      });
+    }
+  </script>
 </html>
