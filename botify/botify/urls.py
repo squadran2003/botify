@@ -23,15 +23,14 @@ from django.urls import include  # Import the include function
 
 from django.contrib.auth import views as auth_views  # Import the auth_views module
 from django.conf import settings  # Import the settings module
-
 from django.conf.urls.static import static  # Import the static function
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", index, name="home"),
+    path("<str:media>/", index, name="home"),
     path("users/", include(("customusers.urls", "users"), namespace="users")),
     path("songs/", include(("songs.urls", "songs"), namespace="songs")),
-    path("<str:type>/", index, name="home"),
 ]
 
 if settings.DEBUG:

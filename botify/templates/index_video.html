@@ -1,0 +1,30 @@
+{% extends 'index.html' %}
+{% block media %}
+<div class="columns is-multiline">
+    {% for song in songs %}
+    <div class="column is-one-quarter">
+        <div class="card">
+            <div class="card-image">
+                <figure class="image is-4by3">
+                    <img src="{{ video.thumbnail }}" alt="Placeholder image">
+                </figure>
+            </div>
+            <div class="card-content">
+                <div class="media">
+                    <div class="media-content">
+                        <p class="title is-4">{{ songs.title }}</p>
+                        <p class="subtitle is-6">{{ song.description }}</p>
+                    </div>
+                </div>
+                <div class="content">
+                   <video width="320" height="240" controls>
+                        <source src="{{ song.url }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
