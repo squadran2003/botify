@@ -3,7 +3,7 @@ from decouple import config, Csv
 
 DEBUG = False
 
-ALLOWED_HOSTS = "*"
+ALLOWED_HOSTS = "*,"
 
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
