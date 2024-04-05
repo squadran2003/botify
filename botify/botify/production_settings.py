@@ -3,7 +3,10 @@ from decouple import config
 
 DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*')
+CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", default='*')
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
