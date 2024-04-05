@@ -24,7 +24,6 @@ services:
       - ./:/usr/src/botify/
       - static:/usr/src/botify/botify/static/
     expose:
-      - 443
       - 8000
     env_file:
       - ./botify/.env
