@@ -6,7 +6,6 @@ DEBUG = False
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
