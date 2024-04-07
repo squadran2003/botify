@@ -2,21 +2,11 @@
 {% load static %}
 {% load custom_filters %}
 {% block content %}
-<div class="container">
+<div class="container is-fluid">
     <div class="columns is-centered mt-4">
         <input type="text" id="search" class="input is-rounded is-large" placeholder="Search for a song">
     </div>
-    <div class="columns">
-        <!-- First Column -->
-        <div class="column">
-            <div class="tabs is-right">
-                <ul>
-                <li><a href="/v/">Video</a></li>
-                <li class="is-active"><a href="/a/"> Audio</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    <hr>
 </div>
 {% block media %}
 {% endblock %}

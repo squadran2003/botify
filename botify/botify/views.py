@@ -7,9 +7,18 @@ def index(request, media="a"):
         songs = Song.objects.filter(
             is_video=True
         ).prefetch_related('artist')
-        return render(request, "index_video.html", {'songs': songs})
+        # add audio video active classes to the context to toggle the dropdown
+        return render(request, "index_video.html", {
+                'songs': songs, 'audio_active': '',
+                'video_active': 'is-active'
+            }
+        )
     else:
         songs = Song.objects.filter(
             is_audio=True
         ).prefetch_related('artist')
-        return render(request, "index_audio.html", {'songs': songs})
+        return render(request, "index_audio.html", {
+                'songs': songs, 'video_active': '',
+                'audio_active': 'is-active'
+            }
+        )

@@ -11,6 +11,7 @@ class Song(models.Model):
     is_audio = models.BooleanField(default=True)
     is_video = models.BooleanField(default=False)
     artist = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title

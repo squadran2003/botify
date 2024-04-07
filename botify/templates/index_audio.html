@@ -1,29 +1,45 @@
 {% extends 'index.html' %}
 {% block media %}
-<div class="columns is-multiline">
+<div class="container is-fluid">
+  <div class="columns is-multiline">
     {% for song in songs %}
-    <div class="column is-one-quarter">
-        <div class="card m-2">
-            <div class="card-content">
-              <div class="content">
-                <p>Title: {{ song.title }}</p>
-                <p>Description: {{ song.description }}</p>
-                <p>Uploaded by: {{song.artist.username}}</p>
-                <audio controls>
+    <div class="column is-modile is-one-quarter">
+        <div class="card is-half-tablet is-one-third-desktop">
+            <div class="card-image">
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-content">
+                    <p class="title is-4">{{song.title}}</p>
+                    <p class="subtitle is-6">artist: <a href="">{{song.artist.username}}</a></p>
+                  </div>
+                </div>
+            
+                <div class="content">
+                  <p>{{song.description}}</p>
+                  <audio controls class="is-half-tablet is-one-third-desktop">
                     <source src="{{ song.file.url }}" type="audio/mpeg">
                     Your browser does not support the audio element.
-                </audio>
-                {% if user.is_authenticated %}
-                    <p>
-                        <a href="" class="button is-light is-rounded"><span class="fa fa-edit"></span>Edit</a>
-                        <a href="" class="button is-light is-rounded"><span class="fa fa-thumbs-up"></span>Like</a>
-                        <a href="" class="button is-light is-rounded"><span class="fa fa-comment"></span>comment</a>
-                    </p>
-                {% endif %}
+                  </audio>
+                  <p><time datetime="2016-1-1">Uploaded on: {{ song.created_at }}</time></p>
+                  <p>
+                    <span class="fa fa-comment">12 comments</span>
+                    <span class="fa fa-thumbs-up">12 likes</span></a>
+                  </p>
+                  {% if user.is_authenticated %}
+                      <p>
+                          <a href="" class="button is-light is-rounded"><span class="fa fa-edit"></span>Edit</a>
+                          <a href="" class="button is-light is-rounded"><span class="fa fa-thumbs-up"></span>Like</a>
+                          <a href="" class="button is-light is-rounded"><span class="fa fa-comment"></span>comment</a>
+                      </p>
+                  {% endif %}
+                </div>
               </div>
             </div>
-          </div>
+          
     </div>
     {% endfor %}
 </div>
+
+</div>
+
 {% endblock %}
