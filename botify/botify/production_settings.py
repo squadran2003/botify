@@ -6,7 +6,7 @@ DEBUG = False
 ALLOWED_HOSTS = [".botifyapp.com"]
 
 CSRF_TRUSTED_ORIGINS = [
-    '.botifyapp.com',
+    'https://botifyapp.com',
 ]
 
 
