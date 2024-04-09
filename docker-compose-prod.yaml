@@ -12,6 +12,7 @@ services:
       - botify
     volumes:
       - static:/home/ubuntu/app/botify/botify/static/
+      - /etc/letsencrypt:/etc/letsencrypt
   api:
     restart: always
     build:
