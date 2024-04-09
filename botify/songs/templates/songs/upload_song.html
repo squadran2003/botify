@@ -7,45 +7,7 @@
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
-        <div class="row">
-          {% if field.field.widget.input_type == 'file' %}
-          <div class="file has-name mt-2">
-            <label class="file-label">
-              {{field}}
-              {% if field.errors %}
-                {% for error in field.errors %}
-                  <p class="help is-danger">{{error}}</p>
-                {% endfor %}
-              {% endif %}
-              <span class="file-cta">
-                <span class="file-icon">
-                  <i class="fa fa-upload"></i>
-                </span>
-                <span class="file-label"> Choose a file… </span>
-              </span>
-              <span class="file-name"> Filename </span>
-            </label>
-          </div>
-          {% elif field.field.widget.input_type == 'checkbox' %}
-            <label class="checkbox">
-              {{field}}
-              <span>{{field.label}}</span>
-              {% if field.errors %}
-                  {% for error in field.errors %}
-                    <p class="help is-danger">{{error}}</p>
-                  {% endfor %}
-              {% endif %}
-            </label>
-          {% else %}
-            <div class="input-field col s12">
-              {{field}}
-              {% if field.errors %}
-                {% for error in field.errors %}
-                  <p class="help is-danger">{{error}}</p>
-                {% endfor %}
-              {% endif %}
-            </div>
-          {% endif %}
+        {% if field.help_text %}<span class="tag is-white">{{field.help_text}}</span>{% endif %}{{ field }}
         {% endfor %}
         <div class="input-field col s12 mt-2">
           <button class="button is-dark" type="submit">Upload</button>
@@ -55,13 +17,3 @@
   </div>
 </div>
 {% endblock %}
-<script>
-    // grab the file input and the file name span
-    const fileInput = document.querySelector('input[type="file"]');
-    const fileName = document.querySelector('.file-name');
-    if(fileInput){
-      fileInput.addEventListener('change', function(e) {
-        fileName.textContent = `${e.target.files[0].name}.${e.target.files[0].type}`;
-      });
-    }
-</script>
