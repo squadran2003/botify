@@ -7,7 +7,7 @@ from django.contrib import messages
 
 
 def handel_uploaded_file(f):
-    path = settings.MEDIA_ROOT + '/songs/{}'.format(f.name)
+    path = settings.MEDIA_ROOT + 'songs/{}'.format(f.name)
     with open(path, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
