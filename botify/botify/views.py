@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from songs.models import Song
 
 
-def index(request, media="a"):
+def index(request, media="v"):
     if media == "v":
         songs = Song.objects.filter(
             is_video=True
