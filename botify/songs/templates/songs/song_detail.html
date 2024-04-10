@@ -2,16 +2,13 @@
 {% load static %}
 {% block content %}
 <div class="container">
-  <div class="row mt-6">
-    <div class="col s12">
-        <video  class="is-modile is-one-quarter" controls>
-        <source src="{{ song.file.url }}" type="video/mp4">
+  <div class="columns">
+    <div class="column">
+      <video controls style="width:1200px; max-height:600px">
+        <source src="{{song.file.url}}" type="video/mp4" />
         Your browser does not support the video tag.
-        </video>
-        <p>
-            <span class="fa fa-comment">12 comments</span>
-            <span class="fa fa-thumbs-up">12 likes</span></a>
-          </p>
+      </video>
+     
     </div>
   </div>
 </div>

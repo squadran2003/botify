@@ -8,11 +8,15 @@ def post_delete_processing(sender, instance, **kwargs):
     instance.thumbnail.delete(False)
     instance.file.delete(False)
 
-# @receiver(post_save, sender=Song)
-# def post_save_processing(sender, instance, **kwargs):
-#     if instance.file:
-#         from pyffmpeg import FFmpeg
-#         ff = FFmpeg()
-#         ff.convert(instance.file, instance.placeholder_image, [f'-ss {instance.file.duration // 2}', '-vframes 1'])
-#         instance.placeholder_image.save(instance.placeholder_image.name, instance.placeholder_image.file, save=False)
-
+@receiver(post_save, sender=Song)
+def post_save_processing(sender, instance, **kwargs):
+    if instance.thumbnail:
+        from PIL import Image
+        # resize the image
+        img = Image.open(instance.thumbnail.path)
+        img = img.resize((1280, 720))
+        path = instance.thumbnail.path
+        instance.thumbnail.delete(False)
+        # print(instance.thumbnail.path)
+        print(img.size)
+        img.save(path)
