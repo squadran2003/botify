@@ -8,15 +8,15 @@ def post_delete_processing(sender, instance, **kwargs):
     instance.thumbnail.delete(False)
     instance.file.delete(False)
 
-@receiver(post_save, sender=Song)
-def post_save_processing(sender, instance, **kwargs):
-    if instance.thumbnail:
-        from PIL import Image
-        # resize the image
-        img = Image.open(instance.thumbnail.path)
-        img = img.resize((1280, 720))
-        path = instance.thumbnail.path
-        instance.thumbnail.delete(False)
-        # print(instance.thumbnail.path)
-        print(img.size)
-        img.save(path)
+# @receiver(post_save, sender=Song)
+# def post_save_processing(sender, instance, **kwargs):
+#     if instance.thumbnail:
+#         from PIL import Image
+#         # resize the image
+#         img = Image.open(instance.thumbnail.path)
+#         img = img.resize((1280, 720))
+#         path = instance.thumbnail.path
+#         instance.thumbnail.delete(False)
+#         # print(instance.thumbnail.path)
+#         print(img.size)
+#         img.save(path)
