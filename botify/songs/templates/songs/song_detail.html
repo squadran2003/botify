@@ -1,15 +1,51 @@
 {% include 'base.html' %}
 {% load static %}
 {% block content %}
-<div class="container">
+<div class="container is-fluid">
   <div class="columns">
-    <div class="column">
-      <video controls style="width:1200px; max-height:600px">
+    <div class="column is-four-fifths mt-4">
+      <video controls style="min-width: 100%" controlsList="nodownload">
         <source src="{{song.file.url}}" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-     
+      <nav class="level">
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading"><span class="fa fa-clock-o"></span></p>
+            <p class="title">{{song.created_at}}</p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading"><span class="fa fa-thumbs-down"></span></p>
+            <p class="title">123</p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading"><span class="fa fa-thumbs-up"></span></p>
+            <p class="title">456K</p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Likes</p>
+            <p class="title">789</p>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="column mt-4">
+     other recommended videos
     </div>
   </div>
 </div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var video = document.querySelector('video');
+    video.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    });
+  });
+</script>
 {% endblock %}
