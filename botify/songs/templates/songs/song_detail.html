@@ -1,5 +1,6 @@
 {% include 'base.html' %}
 {% load static %}
+{% load custom_filters %}
 {% block content %}
 <div class="container is-fluid">
   <div class="columns">
@@ -12,7 +13,8 @@
         <div class="level-item has-text-centered">
           <div>
             <p class="heading"><span class="fa fa-clock-o"></span></p>
-            <p class="title">{{song.created_at}}</p>
+            {% convert_date song.created_at as converted_date %}
+            <p class="title">{{converted_date}}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
