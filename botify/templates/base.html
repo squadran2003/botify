@@ -9,12 +9,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <title>{% block title %}Home{% endblock %}</title>
+  <title>{% block title %}{% endblock %}</title>
 </head> 
 
   <body>
     {% include 'nav.html' %}
-   <div class="container">
+   <div class="container is-fluid">
       {% if messages %}
       <div class="notification is-link is-light mt-4">
         <button class="delete" id="delete"></button>
