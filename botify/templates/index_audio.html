@@ -23,7 +23,11 @@
                   <p><time datetime="2016-1-1">Uploaded on: {{ song.created_at }}</time></p>
                   <p>
                     <span class="fa fa-comment">12 comments</span>
-                    <span class="fa fa-thumbs-up">12 likes</span></a>
+                    {% if song.like_set.all.count %}
+                    <span class="fa fa-heart likes">{{song.like_set.all.count}} like{{song.like_set.all.count|pluralize:'s'}}</span></a>
+                    {% else %}
+                      <span class="fa fa-heart">0 likes</span></a>
+                    {% endif %}
                   </p>
                   {% if user.is_authenticated %}
                       <p>

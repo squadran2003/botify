@@ -31,8 +31,13 @@
         </div>
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Likes</p>
-            <p class="title">789</p>
+            {% if song.like_set.all.count %}
+              <p class="heading"><a href="{% url 'songs:like' song.id %}" class="likes"><span class="fa fa-heart"></span></a>Like{{song.like_set.all.count|pluralize:'s'}}</p>
+            {% else %}
+              <p class="heading"><a href="{% url 'songs:like' song.id %}" class="no-like"><span class="fa fa-heart"></span></a>Likes</p>
+            {% endif %}
+            
+            <p class="title">{{song.like_set.all.count}}</p>
           </div>
         </div>
       </nav>

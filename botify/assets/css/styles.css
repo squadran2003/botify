@@ -1,6 +1,10 @@
 body{
     height: 100vh;
 }
-/* audio{
-    min-width: 100%;
-} */
+/* style the likes */
+.likes{
+    color:red;
+}
+.no-like{
+    color: black;
+}

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.conf import settings
 from songs.forms import SongForm
-from songs.models import Song
+from songs.models import Song, Like
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
@@ -28,3 +28,21 @@ def SongUpload(request):
 def SongDetail(request, pk):
     song = Song.objects.get(id=pk)
     return render(request, 'songs/song_detail.html', {'song': song})
+
+
+def LikeSong(request, song_id):
+    if request.user.is_anonymous:
+        messages.error(request, 'You need to login to like songs.')
+        return redirect('users:login')
+    try:
+        song = Song.objects.get(id=song_id)
+    except Song.DoesNotExist:
+        messages.error(request, 'Invalid song id')
+        return redirect('songs:detail', song_id)
+    else:
+        like, created = Like.objects.get_or_create(
+            user=request.user, song=song
+        )
+    if not created:
+        like.delete()
+    return redirect('songs:detail', song_id)
