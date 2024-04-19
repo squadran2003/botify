@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.conf import settings
-from songs.forms import SongForm
+from songs.forms import SongForm, CommentForm
 from songs.models import Song, Like
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -27,7 +27,16 @@ def SongUpload(request):
 
 def SongDetail(request, pk):
     song = Song.objects.get(id=pk)
-    return render(request, 'songs/song_detail.html', {'song': song})
+    comment_form = CommentForm()
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.song = song
+            comment.user = request.user
+            comment.save()
+            return redirect('songs:detail', pk)
+    return render(request, 'songs/song_detail.html', {'song': song, 'comment_form': comment_form})
 
 
 def LikeSong(request, song_id):

@@ -34,8 +34,8 @@ class Song(models.Model):
 
 
 class Like(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    song = models.ForeignKey(Song, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    song = models.ForeignKey(Song, on_delete=models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -43,3 +43,13 @@ class Like(models.Model):
 
     def __str__(self):
         return f'{self.user.username} likes {self.song.title}'
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    song = models.ForeignKey(Song, on_delete=models.PROTECT)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.user.username} comments on {self.song.title}'

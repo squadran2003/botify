@@ -1,4 +1,4 @@
-from songs.models import Song
+from songs.models import Song, Comment
 from django import forms
 from django.core.exceptions import ValidationError
 
@@ -39,3 +39,17 @@ class SongForm(forms.ModelForm):
             raise ValidationError("Not supported audo video file format.")
         return file
 
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
+        help_texts = {
+            'content': 'Add a comment',
+
+        }
+        widgets = {
+            'content': forms.Textarea(
+                attrs={'rows': '4','placeholder': 'Add a comment', 'class': 'textarea'}
+            ),
+        }

@@ -41,6 +41,44 @@
           </div>
         </div>
       </nav>
+      <form action="{% url 'songs:detail' song.id %}" method="POST">
+        {% csrf_token %}
+        {% for field in comment_form %}
+          <div class="field">
+            <!-- <label class="label">{{field.label}}</label> -->
+            {{field}}
+          </div>
+        {% endfor %}
+        <div class="field is-grouped">
+          <div class="control">
+            <button class="button is-link">Submit</button>
+          </div>
+          <div class="control">
+            <button class="button is-link is-light">Cancel</button>
+          </div>
+        </div>
+      </form>
+      <div class="mt-4">
+        <h3 class="title is-4">Comments</h3>
+        {% for comment in song.comment_set.all %}
+          <div class="box">
+            <article class="media">
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong>{{comment.user}}</strong>
+                    <br>
+                    {{comment.content}}
+                    <br>
+                    {% convert_date comment.created_at as converted_coment_date %}
+                    <small>{{converted_coment_date}}</small>
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
+        {% endfor %}
+      </div>
     </div>
     <div class="column mt-4">
      other recommended videos
