@@ -29,6 +29,9 @@ def SongDetail(request, pk):
     song = Song.objects.get(id=pk)
     comment_form = CommentForm()
     if request.method == 'POST':
+        if request.user.is_anonymous:
+            messages.error(request, 'You need to login to comment on songs.')
+            return redirect('users:login')
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
