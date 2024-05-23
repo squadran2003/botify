@@ -3,6 +3,7 @@ from decouple import config, Csv
 import boto3
 from botocore.exceptions import ClientError
 import json
+import os
 
 DEBUG = False
 
@@ -14,6 +15,9 @@ CSRF_TRUSTED_ORIGINS = [
 
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
+# Rest of your code...
 
 
 def get_secret():

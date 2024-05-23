@@ -19,8 +19,10 @@ services:
       context: ./
       dockerfile: Dockerfile
     command: >
-      sh -c "python manage.py migrate && python manage.py collectstatic --noinput &&
-             gunicorn botify.wsgi:application --bind 0.0.0.0:8000"
+      sh -c "
+              python fetch_secrets.py production &&    
+              python manage.py migrate && python manage.py collectstatic --noinput &&
+              gunicorn botify.wsgi:application --bind 0.0.0.0:8000"
     volumes:
       - ./:/usr/src/botify/
       - static:/usr/src/botify/botify/static/
