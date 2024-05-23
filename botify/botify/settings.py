@@ -17,15 +17,16 @@ from decouple import config, Csv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1', cast=Csv())
-SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
-DB_NAME = config('DB_NAME')
-DB_USER = config('DB_USER')
-DB_PASSWORD = config('DB_PASSWORD')
-DB_HOST = config('DB_HOST')
-DJANGO_SETTINGS_MODULE = "botify.settings"
+DEBUG = True
+if DEBUG:
+    ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1', cast=Csv())
+    SECRET_KEY = config('SECRET_KEY')
+    DEBUG = config('DEBUG', default=False, cast=bool)
+    DB_NAME = config('DB_NAME')
+    DB_USER = config('DB_USER')
+    DB_PASSWORD = config('DB_PASSWORD')
+    DB_HOST = config('DB_HOST')
+    DJANGO_SETTINGS_MODULE = "botify.settings"
 
 
 # Application definition
