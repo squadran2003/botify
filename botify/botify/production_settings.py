@@ -46,6 +46,9 @@ def get_secret():
 
 
 SECRETS = get_secret()
+
+SECRET_KEY = SECRETS['SECRET_KEY']
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
