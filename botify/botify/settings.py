@@ -18,6 +18,7 @@ from decouple import config, Csv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = True
+
 if DEBUG:
     ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1', cast=Csv())
     SECRET_KEY = config('SECRET_KEY')
