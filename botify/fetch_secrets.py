@@ -28,14 +28,15 @@ def get_secrets():
 
     secrets = get_secret_value_response['SecretString']
     secret_dict = json.loads(secrets)
-    os.environ["DJANGO_SETTINGS_MODULE"] = secret_dict["DJANGO_SETTINGS_MODULE"]
+    return secret_dict["DJANGO_SETTINGS_MODULE"]
 
 
 if __name__ == "__main__":
     print(sys.argv)
     if sys.argv[1] == "production":
         print("Getting settings from AWS Secrets Manager")
-        get_secrets()
+        print(get_secrets())
+        os.environ["DJANGO_SETTINGS_MODULE"] = get_secrets()
     else:
         print("Using local settings")
         os.environ["DJANGO_SETTINGS_MODULE"] = "botify.settings"
