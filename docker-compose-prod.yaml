@@ -18,9 +18,6 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    environment:
-      - DJANGO_SETTINGS_MODULE=botify.production_settings
-      - DEBUG=0
     command: >
       sh -c "
               python manage.py migrate && python manage.py collectstatic --noinput &&
