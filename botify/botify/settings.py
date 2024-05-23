@@ -25,7 +25,7 @@ DB_NAME = config('DB_NAME')
 DB_USER = config('DB_USER')
 DB_PASSWORD = config('DB_PASSWORD')
 DB_HOST = config('DB_HOST')
-DJANGO_SETTINGS_MODULE = config("DJANGO_SETTINGS_MODULE")
+DJANGO_SETTINGS_MODULE = "botify.settings"
 
 
 # Application definition

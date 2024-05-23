@@ -8,6 +8,8 @@ services:
       dockerfile: Dockerfile
       
     user: ${CURRENT_UID}
+    environment:
+      - DJANGO_SETTINGS_MODULE=botify.settings
     command: >
       sh -c "
              python manage.py migrate &&
