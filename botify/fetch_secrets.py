@@ -36,7 +36,7 @@ if __name__ == "__main__":
     if sys.argv[1] == "production":
         print("Getting settings from AWS Secrets Manager")
         print(get_secrets())
-        os.environ["DJANGO_SETTINGS_MODULE"] = get_secrets()
+        os.environ["DJANGO_SETTINGS_MODULE"] = "botify.production_settings"
     else:
         print("Using local settings")
         os.environ["DJANGO_SETTINGS_MODULE"] = "botify.settings"
