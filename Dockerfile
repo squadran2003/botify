@@ -8,7 +8,7 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /usr/src/botify
 
 COPY pyproject.toml poetry.lock ./
-COPY ./botify/fetch_secrets.py ./botify/fetch_secrets.py
+
 
 
 RUN pip install poetry
