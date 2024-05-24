@@ -23,7 +23,7 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 def get_secret():
 
     secret_name = "botifyapp-secrets"
-    region_name = "eu-west-2"
+    region_name = "us-east-1"
 
     # Create a Secrets Manager client
     session = boto3.session.Session()

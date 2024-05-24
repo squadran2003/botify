@@ -26,6 +26,7 @@ phases:
   build:
     commands:
       - SECRET_KEY=$(aws secretsmanager get-secret-value --secret-id botifyapp-secrets --query SECRET_KEY --output text --region us-east-1)
+      - echo $SECRET_KEY
       - export SECRET_KEY
       - DB_NAME=$(aws secretsmanager get-secret-value --secret-id botifyapp-secrets --query DB_NAME --output text --region us-east-1)
       - export DB_NAME
@@ -34,6 +35,7 @@ phases:
       - DB_PASSWORD=$(aws secretsmanager get-secret-value --secret-id botifyapp-secrets --query DB_PASSWORD --output text --region us-east-1)
       - export DB_PASSWORD
       - DB_HOST=$(aws secretsmanager get-secret-value --secret-id botifyapp-secrets --query DB_HOST_OUTER --output text --region us-east-1)
+      - echo $DB_HOST
       - export DB_HOST
       - export DJANGO_SETTINGS_MODULE="botify.settings"
       - cd botify/
