@@ -9,15 +9,15 @@ phases:
       - poetry install
   pre_build:
     commands:
-      - SECRET_KEY=$(aws secretsmanager get-secret-value --secret-id SECRET_KEY --query SecretString --output text --region eu-west-2)
+      - SECRET_KEY=$(aws secretsmanager get-secret-value --secret-id SECRET_KEY --query SecretString --output text --region us-east-1)
       - export SECRET_KEY
-      - DB_NAME=$(aws secretsmanager get-secret-value --secret-id DB_NAME --query SecretString --output text --region eu-west-2)
+      - DB_NAME=$(aws secretsmanager get-secret-value --secret-id DB_NAME --query SecretString --output text --region us-east-1)
       - export DB_NAME
-      - DB_USER=$(aws secretsmanager get-secret-value --secret-id DB_USER --query SecretString --output text --region eu-west-2)
+      - DB_USER=$(aws secretsmanager get-secret-value --secret-id DB_USER --query SecretString --output text --region us-east-1)
       - export DB_USER
-      - DB_PASSWORD=$(aws secretsmanager get-secret-value --secret-id DB_PASSWORD --query SecretString --output text --region eu-west-2)
+      - DB_PASSWORD=$(aws secretsmanager get-secret-value --secret-id DB_PASSWORD --query SecretString --output text --region us-east-1)
       - export DB_PASSWORD
-      - DB_HOST=$(aws secretsmanager get-secret-value --secret-id DB_HOST_OUTER --query SecretString --output text --region eu-west-2)
+      - DB_HOST=$(aws secretsmanager get-secret-value --secret-id DB_HOST_OUTER --query SecretString --output text --region us-east-1)
       - export DB_HOST
       - export DJANGO_SETTINGS_MODULE="botify.settings"
       - cd botify/
@@ -27,13 +27,13 @@ phases:
     commands:
       - SECRET_KEY="1383783738"
       - export SECRET_KEY
-      - DB_NAME=$(aws secretsmanager get-secret-value --secret-id DB_NAME --query SecretString --output text --region eu-west-2)
+      - DB_NAME=$(aws secretsmanager get-secret-value --secret-id DB_NAME --query SecretString --output text --region us-east-1)
       - export DB_NAME
-      - DB_USER=$(aws secretsmanager get-secret-value --secret-id DB_USER --query SecretString --output text --region eu-west-2)
+      - DB_USER=$(aws secretsmanager get-secret-value --secret-id DB_USER --query SecretString --output text --region us-east-1)
       - export DB_USER
-      - DB_PASSWORD=$(aws secretsmanager get-secret-value --secret-id DB_PASSWORD --query SecretString --output text --region eu-west-2)
+      - DB_PASSWORD=$(aws secretsmanager get-secret-value --secret-id DB_PASSWORD --query SecretString --output text --region us-east-1)
       - export DB_PASSWORD
-      - DB_HOST=$(aws secretsmanager get-secret-value --secret-id DB_HOST_OUTER --query SecretString --output text --region eu-west-2)
+      - DB_HOST=$(aws secretsmanager get-secret-value --secret-id DB_HOST_OUTER --query SecretString --output text --region us-east-1)
       - export DB_HOST
       - export DJANGO_SETTINGS_MODULE="botify.settings"
       - cd botify/
