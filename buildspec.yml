@@ -17,7 +17,7 @@ phases:
       - export DB_USER
       - DB_PASSWORD=$(aws secretsmanager get-secret-value --secret-id botifyapp-secrets --query DB_PASSWORD --output text --region us-east-1)
       - export DB_PASSWORD
-      - DB_HOST=$(aws secretsmanager get-secret-value --secret-id botifyapp-secrets --query DB_HOST --output text --region us-east-1)
+      - DB_HOST=$(aws secretsmanager get-secret-value --secret-id botifyapp-secrets --query DB_HOST_OUTER --output text --region us-east-1)
       - export DB_HOST
       - export DJANGO_SETTINGS_MODULE="botify.settings"
       - cd botify/
