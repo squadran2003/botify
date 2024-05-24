@@ -9,34 +9,44 @@ phases:
       - poetry install
   pre_build:
     commands:
-      - SECRET_KEY=$(aws secretsmanager get-secret-value --secret-id botifyapp-secrets --query SECRET_KEY --output text --region us-east-1)
-      - echo $SECRET_KEY
+      - SECRET_KEY=$(aws secretsmanager get-secret-value --secret-id botifyapp-secrets --query SecretString --output text --region us-east-1)
+      - SECRET_KEY=$(echo $SECRET_STRING | jq -r .SECRET_KEY)
       - export SECRET_KEY
-      - DB_NAME=$(aws secretsmanager get-secret-value --secret-id botifyapp-secrets --query DB_NAME --output text --region us-east-1)
+      - echo $SECRET_KEY
+      - DB_NAME=$(aws secretsmanager get-secret-value --secret-id botifyapp-secrets --query SecretString --output text --region us-east-1)
+      - DB_NAME=$(echo $SECRET_STRING | jq -r .DB_NAME)
       - export DB_NAME
-      - DB_USER=$(aws secretsmanager get-secret-value --secret-id botifyapp-secrets --query DB_USER --output text --region us-east-1)
+      - DB_USER=$(aws secretsmanager get-secret-value --secret-id botifyapp-secrets --query SecretString --output text --region us-east-1)
+      - DB_USER=$(echo $SECRET_STRING | jq -r .DB_USER)
       - export DB_USER
-      - DB_PASSWORD=$(aws secretsmanager get-secret-value --secret-id botifyapp-secrets --query DB_PASSWORD --output text --region us-east-1)
+      - DB_PASSWORD=$(aws secretsmanager get-secret-value --secret-id botifyapp-secrets --query SecretString --output text --region us-east-1)
+      - DB_PASSWORD=$(echo $SECRET_STRING | jq -r .DB_PASSWORD)
       - export DB_PASSWORD
-      - DB_HOST=$(aws secretsmanager get-secret-value --secret-id botifyapp-secrets --query DB_HOST_OUTER --output text --region us-east-1)
-      - export DB_HOST
+      - DB_HOST=$(aws secretsmanager get-secret-value --secret-id botifyapp-secrets --query SecretString --output text --region us-east-1)
+      - DB_HOST=$(echo $SECRET_STRING | jq -r .DB_HOST_OUTER)
       - echo $DB_HOST
+      - export DB_HOST
       - export DJANGO_SETTINGS_MODULE="botify.settings"
       - cd botify/
       - poetry run python manage.py migrate
       - poetry run python manage.py collectstatic --noinput
   build:
     commands:
-      - SECRET_KEY=$(aws secretsmanager get-secret-value --secret-id botifyapp-secrets --query SECRET_KEY --output text --region us-east-1)
-      - echo $SECRET_KEY
+      - SECRET_KEY=$(aws secretsmanager get-secret-value --secret-id botifyapp-secrets --query SecretString --output text --region us-east-1)
+      - SECRET_KEY=$(echo $SECRET_STRING | jq -r .SECRET_KEY)
       - export SECRET_KEY
-      - DB_NAME=$(aws secretsmanager get-secret-value --secret-id botifyapp-secrets --query DB_NAME --output text --region us-east-1)
+      - echo $SECRET_KEY
+      - DB_NAME=$(aws secretsmanager get-secret-value --secret-id botifyapp-secrets --query SecretString --output text --region us-east-1)
+      - DB_NAME=$(echo $SECRET_STRING | jq -r .DB_NAME)
       - export DB_NAME
-      - DB_USER=$(aws secretsmanager get-secret-value --secret-id botifyapp-secrets --query DB_USER --output text --region us-east-1)
+      - DB_USER=$(aws secretsmanager get-secret-value --secret-id botifyapp-secrets --query SecretString --output text --region us-east-1)
+      - DB_USER=$(echo $SECRET_STRING | jq -r .DB_USER)
       - export DB_USER
-      - DB_PASSWORD=$(aws secretsmanager get-secret-value --secret-id botifyapp-secrets --query DB_PASSWORD --output text --region us-east-1)
+      - DB_PASSWORD=$(aws secretsmanager get-secret-value --secret-id botifyapp-secrets --query SecretString --output text --region us-east-1)
+      - DB_PASSWORD=$(echo $SECRET_STRING | jq -r .DB_PASSWORD)
       - export DB_PASSWORD
-      - DB_HOST=$(aws secretsmanager get-secret-value --secret-id botifyapp-secrets --query DB_HOST_OUTER --output text --region us-east-1)
+      - DB_HOST=$(aws secretsmanager get-secret-value --secret-id botifyapp-secrets --query SecretString --output text --region us-east-1)
+      - DB_HOST=$(echo $SECRET_STRING | jq -r .DB_HOST_OUTER)
       - echo $DB_HOST
       - export DB_HOST
       - export DJANGO_SETTINGS_MODULE="botify.settings"
