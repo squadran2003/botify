@@ -25,7 +25,7 @@ phases:
       - poetry run python manage.py collectstatic --noinput
   build:
     commands:
-      - SECRET_KEY=$(aws secretsmanager get-secret-value --secret-id SECRET_KEY --query SecretString --output text --region eu-west-2)
+      - SECRET_KEY="1383783738"
       - export SECRET_KEY
       - DB_NAME=$(aws secretsmanager get-secret-value --secret-id DB_NAME --query SecretString --output text --region eu-west-2)
       - export DB_NAME
