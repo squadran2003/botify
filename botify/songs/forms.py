@@ -50,6 +50,9 @@ class CommentForm(forms.ModelForm):
         }
         widgets = {
             'content': forms.Textarea(
-                attrs={'rows': '4','placeholder': 'Add a comment', 'class': 'textarea'}
+                attrs={
+                    'rows': '4',
+                    'placeholder': 'Add a comment', 
+                    'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}
             ),
         }

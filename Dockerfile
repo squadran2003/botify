@@ -9,9 +9,13 @@ WORKDIR /usr/src/botify
 
 COPY pyproject.toml poetry.lock ./
 
+RUN apt-get update && apt-get install -y npm
+
+
 
 
 RUN pip install poetry
+
 
 
 RUN poetry config virtualenvs.create false \

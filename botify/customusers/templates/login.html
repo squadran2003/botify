@@ -1,37 +1,22 @@
- {% extends 'base.html' %}
- {% block title %} Botifyapp | Login {% endblock %}
+{% extends 'base.html' %}
+{% block title %} Botifyapp | Login {% endblock %}
 {% block content %}
-<div class="container">
-    <form  action="{% url 'users:login' %}" method="post" style="margin-top: 50px;">
+<div class="container mx-auto mt-4">
+
+    <form action="{% url 'users:login' %}" method="post">
         {% csrf_token %}
-        {% for field in form %} 
-        <div class="field">
-            <p class="control has-icons-left has-icons-right">
-                {{ field }}
-                {% if field.name == 'password' %}
-                    <span class="icon is-small is-left">
-                        <i class="fa fa-lock"></i>
-                    </span>
-                {% else %}
-                    <span class="icon is-small is-left">
-                        <i class="fa fa-envelope"></i>
-                    </span>
-                {% endif %}
-            </p>
+        <div class="mb-4 mt-4">
+           {{ form.email }}
         </div>
-        {% endfor %}
-        <div class="field">
-            <p class="control">
-            <button class="button is-dark" type="submit">
-                Login
-            </button>
-            </p>
-        </div>
-        {% if error %}
-            <p class="help is-danger">{{error}}</p>
+        <div class="mb-4 mt-4">
+            {{ form.password }}
+         </div>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Login</button>
+        {% if form.error %}
+            <p class="text-red-500">{{ form.error }}</p>
         {% endif %}
-            
     </form>
+    
 </div>
 
 {% endblock %}

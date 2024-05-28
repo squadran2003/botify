@@ -3,87 +3,44 @@
 {% load custom_filters %}
 {% block title %} Botifyapp | Media  {% endblock %}
 {% block content %}
-  <div class="columns">
-    <div class="column is-four-fifths mt-4">
-      <video controls style="min-width: 100%" controlsList="nodownload" autoplay>
-        <source src="{{song.file.url}}" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-      <nav class="level">
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading"><span class="fa fa-clock-o"></span></p>
-            {% convert_date song.created_at as converted_date %}
-            <p class="title">{{converted_date}}</p>
-          </div>
-        </div>
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading"><span class="fa fa-thumbs-down"></span></p>
-            <p class="title">123</p>
-          </div>
-        </div>
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading"><span class="fa fa-thumbs-up"></span></p>
-            <p class="title">456K</p>
-          </div>
-        </div>
-        <div class="level-item has-text-centered">
-          <div>
-            {% if song.like_set.all.count %}
-              <p class="heading"><a href="{% url 'songs:like' song.id %}" class="likes"><span class="fa fa-heart"></span></a> Like{{song.like_set.all.count|pluralize:'s'}}</p>
-            {% else %}
-              <p class="heading"><a href="{% url 'songs:like' song.id %}" class="no-like"><span class="fa fa-heart"></span></a> Likes</p>
-            {% endif %}
-            
-            <p class="title">{{song.like_set.all.count}}</p>
-          </div>
-        </div>
-      </nav>
-      <form action="{% url 'songs:detail' song.id %}" method="POST">
-        {% csrf_token %}
-        {% for field in comment_form %}
-          <div class="field">
-            <!-- <label class="label">{{field.label}}</label> -->
-            {{field}}
-          </div>
-        {% endfor %}
-        <div class="field is-grouped">
-          <div class="control">
-            <button class="button is-link">Submit</button>
-          </div>
-          <div class="control">
-            <button class="button is-link is-light">Cancel</button>
-          </div>
-        </div>
-      </form>
-      <div class="mt-4">
-        <h3 class="title is-4">Comments</h3>
-        {% for comment in song.comment_set.all %}
-          <div class="box">
-            <article class="media">
-              <div class="media-content">
-                <div class="content">
-                  <p>
-                    <strong>{{comment.user}}</strong>
-                    <br>
-                    {{comment.content}}
-                    <br>
-                    {% convert_date comment.created_at as converted_coment_date %}
-                    <small>{{converted_coment_date}}</small>
-                  </p>
-                </div>
-              </div>
-            </article>
-          </div>
-        {% endfor %}
+<div class="container mx-auto mt-4">
+  <div class="grid mt-2 grid-cols-1 gap-4">
+      <div class="mt-8">
+        <video controls class="w-full h-[50vh]">
+          <source src="{{song.file.url}}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <h4 class="text-cyan-50 ml-2">Title: {{song.title}}</h4>
+        <p class="text-cyan-50 ml-2">Description: {{song.description}}</p>
+        {% convert_date song.created_at as converted_date %}
+        <p class="text-cyan-50 ml-2"><time datetime="2016-1-1">Uploaded: {{ converted_date }}</time></p>
       </div>
-    </div>
-    <div class="column mt-4">
-     other recommended videos
-    </div>
+      <div class="mr-2 ml-2 mmt-4">
+        <form action="{% url 'songs:detail' song.id %}" method="POST">
+          {% csrf_token %}
+          {% for field in comment_form %}
+            <div>
+              <!-- <label class="label">{{field.label}}</label> -->
+              {{field}}
+            </div>
+          {% endfor %}
+          <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Comment</button>
+          <button type="button" class="bg-white text-black px-4 py-2 rounded">Cancel</button>
+
+        </form>
+      </div>
+      {% for comment in song.comment_set.all %}
+          <div class="mt-4 ml-2 mr-2">
+            <ul class="list-none">
+              {% convert_date comment.created_at as converted_coment_date %}
+                <li class="text-cyan-50">User: {{comment.user}}</li>
+                <li class="text-cyan-50">comment: {{comment.content}}</li>
+                <li class="text-cyan-50">commented on: {{converted_coment_date}}</li>
+            </ul>
+          </div>
+      {% endfor %}
   </div>
+</div>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     var video = document.querySelector('video');

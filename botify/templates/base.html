@@ -1,31 +1,16 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html>
   <head>
-    <!--Import materialize.css-->
-
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
   <title>{% block title %}{% endblock %}</title>
 </head> 
-
-  <body>
-    {% include 'nav.html' %}
-   <div class="container is-fluid">
-      {% if messages %}
-      <div class="notification is-link is-light mt-4">
-        <button class="delete" id="delete"></button>
-        {% for message in messages %}
-          {{ message }}
-        {% endfor %}
-      </div>
-    {% endif %}
-      {% block content %}
-      {% endblock %}
-    </div>
+  <body class="bg-slate-950"></body>
+   {% include "nav.html" %}
+    {% block content %}
+    {% endblock %}
   </body>
   <script>
     // grab the delete button

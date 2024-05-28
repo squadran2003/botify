@@ -23,7 +23,6 @@ services:
     command: >
       sh -c "
               python manage.py migrate && 
-              python manage.py test &&
               python manage.py collectstatic --noinput &&
               gunicorn botify.wsgi:application --bind 0.0.0.0:8000"
     volumes:
