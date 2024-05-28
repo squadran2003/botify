@@ -67,7 +67,7 @@ AWS_S3_CUSTOM_DOMAIN = "{}.s3.eu-west-2.amazonaws.com".format(AWS_STORAGE_BUCKET
 # need a signature for kms
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
-    'v4-signature': True
+    'signature_version': 's3v4'
 }
 AWS_LOCATION = 'static'
 STATIC_URL = "https://{}/{}/".format(AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
