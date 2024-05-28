@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "npx tailwindcss -i ./botify/assets/css/input.css -o ./botify/assets/css/styles.css --watch"
+    "dev": "npx tailwindcss  ./botify/assets/css/input.css -o ./botify/assets/css/styles.css --watch"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.19",
