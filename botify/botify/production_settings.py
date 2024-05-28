@@ -64,8 +64,10 @@ AWS_ACCESS_KEY_ID = SECRETS['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = SECRETS['AWS_SECRET_ACCESS_KEY']
 AWS_STORAGE_BUCKET_NAME = SECRETS['AWS_STORAGE_BUCKET_NAME']
 AWS_S3_CUSTOM_DOMAIN = "{}.s3.eu-west-2.amazonaws.com".format(AWS_STORAGE_BUCKET_NAME)
+# need a signature for kms
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
+    'v4-signature': True
 }
 AWS_LOCATION = 'static'
 STATIC_URL = "https://{}/{}/".format(AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
