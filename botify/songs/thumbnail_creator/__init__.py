@@ -26,7 +26,7 @@ class ThumbnailCreator:
         bucket_name = self.s3_url.split('/')[2]
         self.bucket_name = bucket_name.split('.')[0]
         # the object should start with the sub domain or else it will not work
-        self.key = "/".join(self.s3.split("/")[3:])
+        self.key = "/".join(self.s3_url.split("/")[3:])
         self.filename = self.key.split('.')[0]
         self.ext = self.key.split('.')[1]
         s3 = boto3.client(
