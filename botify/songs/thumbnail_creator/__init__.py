@@ -25,9 +25,9 @@ class ThumbnailCreator:
         # Download file
         bucket_name = self.s3_url.split('/')[2]
         self.bucket_name = bucket_name.split('.')[0]
-        key = self.s3_url.split('/')[5:][0]
-        self.filename = key.split('.')[0]
-        self.ext = key.split('.')[1]
+        self.key = self.s3_url.split('/')[5:][0]
+        self.filename = self.key.split('.')[0]
+        self.ext = self.key.split('.')[1]
         s3 = boto3.client(
             's3',
             aws_access_key_id=self.ACCESS_KEY,
@@ -37,8 +37,8 @@ class ThumbnailCreator:
             raise Exception("tmp_filename not set")
         s3.download_file(
             self.bucket_name,
-            key,
-            "{}.{}".format(self.filename, self.ext)
+            self.key,
+            self.set_tmp_filename
         )
 
     def save_file(self, filename: str, bucket_name: str, key: str):
