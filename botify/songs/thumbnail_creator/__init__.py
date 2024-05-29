@@ -25,13 +25,12 @@ class ThumbnailCreator:
         # Download file
         bucket_name = self.s3_url.split('/')[2]
         self.bucket_name = bucket_name.split('.')[0]
-        self.key = self.s3_url.split('/')[5:][0]
+        # the object should start with the sub domain or else it will not work
+        self.key = "/".join(self.s3.split("/")[3:])
         self.filename = self.key.split('.')[0]
         self.ext = self.key.split('.')[1]
         s3 = boto3.client(
-            's3',
-            aws_access_key_id=self.ACCESS_KEY,
-            aws_secret_access_key=self.SECRET_KEY,
+            's3'
         )
         if not self.tmp_filename:
             raise Exception("tmp_filename not set")
