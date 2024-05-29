@@ -38,7 +38,7 @@ class ThumbnailCreator:
         s3.download_file(
             self.bucket_name,
             key,
-            self.tmp_filename
+            "{}.{}".format(self.filename, self.ext)
         )
 
     def save_file(self, filename: str, bucket_name: str, key: str):
