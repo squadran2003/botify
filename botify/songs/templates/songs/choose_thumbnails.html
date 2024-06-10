@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+{% block title %} Botifyapp | Media  {% endblock %}
+{% block content %}
+<div class="container mx-auto mt-4">
+  <div class="grid grid-rows-4 grid-flow-col gap-4">
+    {% for thumbnail in temp_thumbnails %}
+      <div>
+        {% if not debug %}
+          <img src="{{thumbnail.thumbnail.url}}" alt="thumbnail">
+        {% else %}
+          <img src="https://placehold.co/1200x700" alt="thumbnail">
+        {% endif %}
+        <form action="{% url 'songs:set_thumbnail' song_id thumbnail.id %}" method="post">
+          {% csrf_token %}
+          <button class="bg-red-500 text-white px-4 py-2 rounded" type="submit">Choose</button>
+        </form>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

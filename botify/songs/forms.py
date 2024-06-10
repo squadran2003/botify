@@ -1,4 +1,4 @@
-from songs.models import Song, Comment
+from songs.models import Song, Comment, TempThumbnail
 from django import forms
 from django.core.exceptions import ValidationError
 
@@ -15,14 +15,19 @@ class SongForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(SongForm, self).__init__(*args, **kwargs)
         self.fields['title'].widget.attrs.update(
-            {'class': 'input', 'placeholder': 'Song Title'}
+            {'class': 'block w-full rounded-md border-0 py-3 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 mt-4', 
+             'placeholder': 'Song Title'
+             }
         )
         self.fields['description'].widget.attrs.update(
-            {'class': 'input', 'placeholder': 'Add a description'}
+            {
+             'class': 'block w-full rounded-md border-0 py-3 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 mt-4', 
+             'placeholder': 'Add a description'
+            }
         )
         # self.fields['thumbnail'].widget.attrs.update({"help_texts": "Upload a thumbnail for the song"})
         # self.fields['file'].widget.attrs.update({"help_texts": "Upload a song file"})
-        self.fields['description'].widget.attrs.update({'class': 'input'})
+        # self.fields['description'].widget.attrs.update({'class': 'input'})
         self.fields['is_audio'].widget.attrs.update({'class': 'checkbox'})
         self.fields['is_video'].widget.attrs.update({'class': 'checkbox'})
         self.fields['artist'].widget = forms.HiddenInput()
@@ -55,4 +60,20 @@ class CommentForm(forms.ModelForm):
                     'placeholder': 'Add a comment', 
                     'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}
             ),
+        }
+
+
+class TempThumbnailForm(forms.ModelForm):
+    class Meta:
+        model = TempThumbnail
+        fields = ['song', 'thumbnail']
+        help_texts = {
+            'thumbnail': 'Upload a thumbnail for the song',
+        }
+        widgets = {
+            'thumbnail': forms.FileInput(
+                attrs={
+                    'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                }
+            )
         }

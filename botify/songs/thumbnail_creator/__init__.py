@@ -1,75 +1,42 @@
-import boto3
 from moviepy.editor import VideoFileClip
 from PIL import Image
-from django.conf import settings
 
 
 class ThumbnailCreator:
-    tmp_filename = None
-    # object in the s3 bucket
-    bucket_name = None
-    filename = None
-    ext = None
+    processed_dir = None
+    ext = 'jpg'
+    limit = 10
 
-    def __init__(self, ACCESS_KEY: str, SECRET_KEY: str, s3_url: str):
-        self.s3_url = s3_url
-        self.ACCESS_KEY = ACCESS_KEY
-        self.SECRET_KEY = SECRET_KEY
+    def __init__(self, path: str, filename: str, processed_dir: str):
+        self.path = path
+        self.filename = filename
+        # split the filename and extension
+        self.filename = self.filename.split('/')[1]
+        self.filename, self.ext = self.filename.split('.')
+        self.processed_dir = processed_dir
         self.thumbnails = []
-
-    def set_tmp_filename(self, tmp_filename: str):
-        """Set the temporary filename to save the file to."""
-        self.tmp_filename = tmp_filename
-
-    def download_file(self):
-        # Download file
-        bucket_name = self.s3_url.split('/')[2]
-        self.bucket_name = bucket_name.split('.')[0]
-        # the object should start with the sub domain or else it will not work
-        self.key = "/".join(self.s3_url.split("/")[3:])
-        self.filename = self.key.split('.')[0]
-        self.ext = self.key.split('.')[1]
-        s3 = boto3.client(
-            's3'
-        )
-        if not self.tmp_filename:
-            raise Exception("tmp_filename not set")
-        s3.download_file(
-            self.bucket_name,
-            self.key,
-            self.tmp_filename
-        )
-
-    def save_file(self, filename: str, bucket_name: str, key: str):
-        # save file to s3
-        boto3.upload_file(
-            filename,
-            bucket_name,
-            key
-        )
 
     def create_thumbnails(self, interval=1):
         # Load the video file
-        clip = VideoFileClip(self.tmp_filename)
+        clip = VideoFileClip(self.path)
 
         # Get the duration of the video in seconds
         duration = int(clip.duration)
 
         # Loop through the video and save thumbnails
-        for t in range(0, duration, interval):
+        for t in range(0, min(duration, self.limit), interval):
             # Get the frame at time t
             frame = clip.get_frame(t)
 
             # Convert the frame to an image
             frame_image = Image.fromarray(frame)
 
+            frame_image = frame_image.resize((1280, 720))
+
             # Save the image as a thumbnail
-            done_file_path = settings.MEDIA_ROOT + "/thumbnail_processing/done/{}.{}".format(
-                self.filename, "jpg"
-            )
-            self.thumbnails.append(done_file_path)
-            frame_image.save(done_file_path)
-            print(f"Saved thumbnail: {done_file_path}")
+            # done_file_path = f"{self.processed_dir}/{self.filename}_{t}.png"
+            self.thumbnails.append(frame_image)
+            # frame_image.save(done_file_path)
 
         # Close the video file
         clip.close()

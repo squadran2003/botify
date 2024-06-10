@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.conf import settings
 from songs.forms import SongForm, CommentForm
-from songs.models import Song, Like
+from songs.models import Song, Like, TempThumbnail
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
@@ -14,8 +14,7 @@ def SongUpload(request):
         form = SongForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Song uploaded succssfully.')
-            return redirect('home')
+            return redirect('songs:choose_thumbnail', form.instance.id)
         else:
             print(form.errors)
             return render(request, 'songs/upload_song.html', {'form': form})
@@ -57,4 +56,21 @@ def LikeSong(request, song_id):
         )
     if not created:
         like.delete()
+    return redirect('songs:detail', song_id)
+
+
+def choose_thumbnail(request, pk):
+    temp_thumbnails = TempThumbnail.objects.filter(song__id=pk)
+    return render(
+        request, 
+        'songs/choose_thumbnails.html', 
+        {'temp_thumbnails': temp_thumbnails, 'song_id': pk, 'debug': settings.DEBUG}
+    )
+
+
+def set_thumbnail(request, song_id, thumbnail_id):
+    song = Song.objects.get(id=song_id)
+    thumbnail = TempThumbnail.objects.get(id=thumbnail_id)
+    song.thumbnail = thumbnail.thumbnail
+    song.save()
     return redirect('songs:detail', song_id)

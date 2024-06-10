@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-
+import os
 User = get_user_model()
 
 
@@ -10,6 +10,10 @@ def songs_directory_path(instance, filename):
 
 def thumbnail_directory_path(instance, filename):
     return 'thumbnails/user_{0}_{1}'.format(instance.artist.id, filename)
+
+
+def thumbnail_temp_directory_path(instance, filename):
+    return 'thumbnails/temp/user_{0}_{1}'.format(instance.id, filename)
 
 
 class Song(models.Model):
@@ -31,6 +35,21 @@ class Song(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class TempThumbnail(models.Model):
+    song = models.ForeignKey(Song, on_delete=models.CASCADE)
+    thumbnail = models.ImageField(
+        upload_to=thumbnail_temp_directory_path,
+        width_field='thumbnail_width',
+        height_field='thumbnail_height',
+        null=True, blank=True
+    )
+    thumbnail_width = models.IntegerField(default=1280)
+    thumbnail_height = models.IntegerField(default=720)
+
+    def __str__(self):
+        return f'Temp thumbnail for {self.song.title}'
 
 
 class Like(models.Model):
@@ -56,3 +75,7 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.user.username} comments on {self.song.title}'
+
+
+
+

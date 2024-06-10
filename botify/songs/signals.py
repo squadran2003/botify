@@ -1,16 +1,45 @@
 from django.db.models.signals import post_delete, post_save # Import the post_delete signal
 from django.dispatch import receiver
-from PIL import Image
-import requests
-from io import BytesIO
 from django.conf import settings
-
-
 from songs.models import Song
+from songs.forms import TempThumbnailForm
+from songs.thumbnail_creator import ThumbnailCreator
+from moviepy.editor import VideoFileClip
+from PIL import Image
+import os
 
-@receiver(post_delete, sender=Song)
-def post_delete_processing(sender, instance, **kwargs):
-    instance.thumbnail.delete(False)
-    instance.file.delete(False)
 
+@receiver(post_save, sender=Song)
+def my_handler(sender, **kwargs):
+    song = kwargs['instance']
+    if song.thumbnail:
+        print('Thumbnail already exists')
+        for temp_thumbnail in song.tempthumbnail_set.all():
+            path = temp_thumbnail.thumbnail.path
+            os.remove(path)
+            temp_thumbnail.delete()
+        return
+    clip = VideoFileClip(song.file.path)
+    # Get the duration of the video in seconds
+    duration = int(clip.duration)
+
+    # Loop through the video and save thumbnails
+    interval = 1
+    for t in range(0, min(duration, 10), interval):
+        # Get the frame at time t
+        frame = clip.get_frame(t)
+
+        # Convert the frame to an image
+        frame_image = Image.fromarray(frame)
+
+        frame_image = frame_image.resize((1280, 720))
+        path = f"{settings.MEDIA_ROOT}/thumbnails/temp/user_{song.id}_{t}.png"
+        frame_image.save(path)
+        thumbnail_form = TempThumbnailForm({'song': song.id})
+        if thumbnail_form.is_valid():
+            temp_thumbnail = thumbnail_form.save(commit=False)
+            temp_thumbnail.thumbnail = path
+            temp_thumbnail.save()
+        else:
+            print(thumbnail_form.errors)
 

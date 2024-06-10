@@ -7,11 +7,13 @@
       {% for song in songs %}
         <div class="mt-8">
           <a href="{% url 'songs:detail' song.id %}">
-              <img
-                src="{{song.thumbnail.url}}"
-                alt="Placeholder image"
-                style="width: 100%; height: 100%;"
-              />
+            {% if song.thumbnail %}
+                <img
+                  src="{{song.thumbnail.url}}"
+                  alt="Placeholder image"
+                  style="width: 100%; height: 100%;"
+                />
+            {% endif %}
             </a>
             <p class="text-cyan-50">Description: {{song.description}}</p>
             {% convert_date song.created_at as converted_date %}
