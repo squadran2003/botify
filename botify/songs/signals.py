@@ -19,7 +19,10 @@ def my_handler(sender, **kwargs):
             os.remove(path)
             temp_thumbnail.delete()
         return
-    clip = VideoFileClip(song.file.path)
+    if settings.DEBUG:
+        clip = VideoFileClip(song.file.path)
+    else:
+        clip = VideoFileClip(song.file.url)
     # Get the duration of the video in seconds
     duration = int(clip.duration)
 
