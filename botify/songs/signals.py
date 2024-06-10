@@ -37,7 +37,14 @@ def my_handler(sender, **kwargs):
 
         frame_image = frame_image.resize((1280, 720))
         path = f"{settings.MEDIA_ROOT}/thumbnails/temp/user_{song.id}_{t}.png"
-        frame_image.save(path)
+        if settings.DEBUG:
+            frame_image.save(path)
+        else:
+            # save to s3
+            import boto3
+            s3 = boto3.client('s3')
+            s3.put_object(Bucket='botify-bucket', Key=path, Body=frame_image)
+            path = f"https://botify-bucket.s3.amazonaws.com/{path}"
         thumbnail_form = TempThumbnailForm({'song': song.id})
         if thumbnail_form.is_valid():
             temp_thumbnail = thumbnail_form.save(commit=False)
