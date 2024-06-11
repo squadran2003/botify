@@ -1,7 +1,7 @@
 from django.db.models.signals import post_delete, post_save # Import the post_delete signal
 from django.dispatch import receiver
 from django.conf import settings
-from songs.models import Song
+from songs.models import Song, TempThumbnail
 from songs.forms import TempThumbnailForm
 from songs.thumbnail_creator import ThumbnailCreator
 from moviepy.editor import VideoFileClip
@@ -43,13 +43,11 @@ def my_handler(sender, **kwargs):
             # save to s3
             import boto3
             s3 = boto3.client('s3')
-            s3.put_object(Bucket='botify-bucket', Key=path, Body=frame_image)
-            path = f"https://botify-bucket.s3.amazonaws.com/{path}"
-        thumbnail_form = TempThumbnailForm({'song': song.id})
-        if thumbnail_form.is_valid():
-            temp_thumbnail = thumbnail_form.save(commit=False)
-            temp_thumbnail.thumbnail = path
-            temp_thumbnail.save()
-        else:
-            print(thumbnail_form.errors)
-
+            path = f"static/thumbnails/temp/user_{song.id}_{t}.png"
+            # save to in memory
+            import io
+            frame_image = io.BytesIO()
+            # here is the problem
+            s3.upload_fileobj(frame_image, 'botifywebapp', path)
+            # get a normal url
+        TempThumbnail.objects.create(song=song, thumbnail=path)
