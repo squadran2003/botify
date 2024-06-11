@@ -46,8 +46,9 @@ def my_handler(sender, **kwargs):
             upload_path = f"static/thumbnails/temp/user_{song.id}_{t}.png"
             path = f"thumbnails/temp/user_{song.id}_{t}.png"
             # save to in memory
-            import io
-            frame_image = io.BytesIO()
+            # import io
+            # frame_image = io.BytesIO()
+
             # here is the problem
             s3.upload_fileobj(frame_image, 'botifywebapp', upload_path)
             # get a normal url
