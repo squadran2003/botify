@@ -43,7 +43,7 @@ def my_handler(sender, **kwargs):
             # save to s3
             import boto3
             s3 = boto3.client('s3')
-            path = f"{settings.MEDIA_URL}/static/thumbnails/temp/user_{song.id}_{t}.png"
+            path = f"static/thumbnails/temp/user_{song.id}_{t}.png"
             # save to in memory
             import io
             frame_image = io.BytesIO()
