@@ -43,11 +43,12 @@ def my_handler(sender, **kwargs):
             # save to s3
             import boto3
             s3 = boto3.client('s3')
+            upload_path = f"static/thumbnails/temp/user_{song.id}_{t}.png"
             path = f"thumbnails/temp/user_{song.id}_{t}.png"
             # save to in memory
             import io
             frame_image = io.BytesIO()
             # here is the problem
-            s3.upload_fileobj(frame_image, 'botifywebapp', path)
+            s3.upload_fileobj(frame_image, 'botifywebapp', upload_path)
             # get a normal url
         TempThumbnail.objects.create(song=song, thumbnail=path)
