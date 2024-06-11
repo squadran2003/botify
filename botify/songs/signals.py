@@ -46,9 +46,12 @@ def my_handler(sender, **kwargs):
             s3 = boto3.client('s3')
             upload_path = f"static/thumbnails/temp/user_{song.id}_{t}.png"
             path = f"thumbnails/temp/user_{song.id}_{t}.png"
+            image_buffer = io.BytesIO()
+            frame_image.save(image_buffer, format='PNG')
+            image_buffer.seek(0)  # Rewind the buffer to the beginning
             # save the frame image as a file object from memory
-            
+     
             # here is the problem
-            s3.upload_fileobj(io.BytesIO(frame_image), 'botifywebapp', upload_path)
+            s3.upload_fileobj(image_buffer, 'botifywebapp', upload_path)
             # get a normal url
         TempThumbnail.objects.create(song=song, thumbnail=path)
