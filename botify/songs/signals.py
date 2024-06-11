@@ -48,6 +48,6 @@ def my_handler(sender, **kwargs):
             # save the frame image as a file object from memory
 
             # here is the problem
-            s3.Object("botifywebapp", upload_path).put(Body=frame_image.tobytes())
+            s3.Object("botifywebapp", upload_path).put(Body=frame_image)
             # get a normal url
         TempThumbnail.objects.create(song=song, thumbnail=path)
