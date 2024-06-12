@@ -25,6 +25,15 @@ def my_handler(sender, **kwargs):
         clip = VideoFileClip(song.file.url)
     # Get the duration of the video in seconds
     duration = int(clip.duration)
+    video_aspect_ratio = clip.w / clip.h
+
+    thumbnail_width, thumbnail_height = 1280, 720
+    if video_aspect_ratio > 1:  # Horizontal video
+        new_height = thumbnail_height
+        new_width = int(new_height * video_aspect_ratio)
+    else:  # Vertical video
+        new_width = thumbnail_width
+        new_height = int(new_width / video_aspect_ratio)
 
     # Loop through the video and save thumbnails
     interval = 1
@@ -34,8 +43,7 @@ def my_handler(sender, **kwargs):
 
         # Convert the frame to an image
         frame_image = Image.fromarray(frame)
-
-        frame_image = frame_image.resize((1280, 720))
+        frame_image = frame_image.resize((new_width, new_height))
         path = f"{settings.MEDIA_ROOT}/thumbnails/temp/user_{song.id}_{t}.png"
         if settings.DEBUG:
             frame_image.save(path)
@@ -50,7 +58,7 @@ def my_handler(sender, **kwargs):
             frame_image.save(image_buffer, format='PNG')
             image_buffer.seek(0)  # Rewind the buffer to the beginning
             # save the frame image as a file object from memory
-     
+
             # here is the problem
             s3.upload_fileobj(image_buffer, 'botifywebapp', upload_path)
             # get a normal url
